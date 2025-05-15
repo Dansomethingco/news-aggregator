@@ -1,0 +1,25 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NEXT_PUBLIC_NEWS_API_KEY = "ee5ff44e5ba240dc91d5d2289077d65d"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+[dev]
+  framework = "nextjs"
+  targetPort = 3000
+
+[[redirects]]
+  from = "http://today.something-co.com/*"
+  to = "https://today.something-co.com/:splat"
+  status = 301
+  force = true

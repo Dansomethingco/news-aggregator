@@ -34,6 +34,14 @@ export default function Header() {
                 {/* Categories will be added here */}
               </nav>
             </div>
+            <div className="flex items-center space-x-4">
+              <Link
+                href="/myaccount"
+                className="font-rockwell-regular text-black text-sm tracking-wider hover:text-gray-600 transition-colors"
+              >
+                my account
+              </Link>
+            </div>
           </div>
         </div>
       </header>

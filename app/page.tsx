@@ -67,25 +67,31 @@ export default function Home() {
               height={30}
               className="h-8 w-auto"
             />
-            <nav className="flex flex-wrap justify-center gap-2 md:justify-end">
-              <div className="flex flex-wrap justify-center gap-2">
-                {categories.map((category) => (
-                  <Link
-                    key={category}
-                    href={`/category/${category}`}
-                    className={`px-4 py-2 rounded-full text-sm font-rockwell-regular ${
-                      category === currentCategory
-                        ? 'bg-[#003366] text-white'
-                        : 'text-black hover:text-gray-600'
-                    }`}
-                    style={{
-                      textTransform: 'lowercase'
-                    }}
-                    onClick={() => handleCategoryChange(category)}
-                  >
-                    {category}
-                  </Link>
-                ))}
+            <nav className="flex overflow-x-auto hide-scrollbar">
+              <div className="flex min-w-full gap-2">
+                {categories
+                  .sort((a: NewsCategory, b: NewsCategory) => {
+                    if (a === 'general') return -1;
+                    if (b === 'general') return 1;
+                    return 0;
+                  })
+                  .map((category: NewsCategory) => (
+                    <Link
+                      key={category}
+                      href={`/category/${category}`}
+                      className={`px-4 py-2 rounded-full text-sm font-rockwell-regular ${
+                        category === currentCategory
+                          ? 'bg-[#003366] text-white'
+                          : 'text-black hover:text-gray-600'
+                      }`}
+                      style={{
+                        textTransform: 'lowercase'
+                      }}
+                      onClick={() => handleCategoryChange(category)}
+                    >
+                      {category}
+                    </Link>
+                  ))}
               </div>
             </nav>
           </div>

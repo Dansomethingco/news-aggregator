@@ -24,8 +24,7 @@ export default function Home() {
       setIsLoading(true);
       setError(null);
       
-      const country = preferences?.country?.toLowerCase() || 'gb';
-      const response = await fetch(`/api/news?category=${currentCategory}&country=${country}`);
+      const response = await fetch(`/api/news?category=${currentCategory}`);
       
       if (!response.ok) {
         const errorText = await response.text();

@@ -35,13 +35,12 @@ interface NewsApiResponse {
   message?: string;
 }
 
-export async function fetchNews(category: string, country: string): Promise<NewsArticle[]> {
+export async function fetchNews(category: string): Promise<NewsArticle[]> {
   try {
-    console.log('Fetching news for:', { category, country });
+    console.log('Fetching news for:', { category });
     
-    // Normalize category and country
+    // Normalize category
     const normalizedCategory = category.toLowerCase();
-    const normalizedCountry = country.toLowerCase();
     
     // Validate category
     const validCategories = ['general', 'business', 'technology', 'sports', 'entertainment', 'health', 'science'];
@@ -50,14 +49,8 @@ export async function fetchNews(category: string, country: string): Promise<News
       return [];
     }
 
-    // Validate country
-    if (!normalizedCountry) {
-      console.warn('No country specified, using default: gb');
-      return [];
-    }
-
     // Build query parameters
-    const url = `${NEWS_API_URL}?category=${normalizedCategory}&country=${normalizedCountry}&apiKey=${NEWS_API_KEY}&language=en`;
+    const url = `${NEWS_API_URL}?category=${normalizedCategory}&apiKey=${NEWS_API_KEY}&language=en`;
     console.log('API URL:', url);
     console.log('Request Headers:', { 'User-Agent': 'Next.js News Aggregator' });
 
@@ -94,7 +87,7 @@ export async function fetchNews(category: string, country: string): Promise<News
     }
 
     if (apiData.articles.length === 0) {
-      console.log('No articles found for category:', normalizedCategory, 'country:', normalizedCountry);
+      console.log('No articles found for category:', normalizedCategory);
       return [];
     }
 
@@ -105,9 +98,9 @@ export async function fetchNews(category: string, country: string): Promise<News
   }
 }
 
-export async function getNewsByCategory(category: string, country: string): Promise<NextResponse> {
+export async function getNewsByCategory(category: string): Promise<NextResponse> {
   try {
-    const articles = await fetchNews(category, country);
+    const articles = await fetchNews(category);
     return NextResponse.json({ articles });
   } catch (error) {
     console.error('Error in getNewsByCategory:', error);

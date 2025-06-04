@@ -5,27 +5,22 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { fetchNews } from '@/app/services/newsApiService';
 import { Article } from '@/lib/mockNews';
-import { NewsCategory } from '@/app/services/newsApi';
-import { usePreferences } from './contexts/PreferencesContext';
 
 export default function Home() {
-  const { preferences } = usePreferences();
-  const [currentCategory, setCurrentCategory] = useState<string>('general');
   const [articles, setArticles] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchNewsArticles();
-  }, [currentCategory]);
+  }, []);
 
   const fetchNewsArticles = async () => {
     try {
       setIsLoading(true);
       setError(null);
       
-      const country = preferences?.country?.toLowerCase() || 'gb';
-      const response = await fetch(`/api/news?category=${currentCategory}&country=${country}`);
+      const response = await fetch('/api/news');
       
       if (!response.ok) {
         const errorText = await response.text();
@@ -38,7 +33,7 @@ export default function Home() {
       }
 
       if (data.articles.length === 0) {
-        setError('No articles found for this category and country combination');
+        setError('No articles found');
         return;
       }
 
@@ -50,12 +45,6 @@ export default function Home() {
     }
   };
 
-  const handleCategoryChange = (category: NewsCategory) => {
-    setCurrentCategory(category);
-  };
-
-  const categories: NewsCategory[] = preferences.categories.map(cat => cat.toLowerCase() as NewsCategory);
-
   return (
     <div className="min-h-screen">
       <header className="bg-white shadow-sm">
@@ -63,29 +52,15 @@ export default function Home() {
           <div className="flex justify-between items-center">
             <nav className="flex overflow-x-auto hide-scrollbar">
               <div className="flex min-w-full gap-2">
-                {categories
-                  .sort((a: NewsCategory, b: NewsCategory) => {
-                    if (a === 'general') return -1;
-                    if (b === 'general') return 1;
-                    return 0;
-                  })
-                  .map((category: NewsCategory) => (
-                    <Link
-                      key={category}
-                      href={`/category/${category}`}
-                      className={`px-4 py-2 rounded-full text-sm font-rockwell-bold ${
-                        category === currentCategory
-                          ? 'bg-[#003366] text-white'
-                          : 'text-black hover:text-gray-600'
-                      }`}
-                      style={{
-                        textTransform: 'lowercase'
-                      }}
-                      onClick={() => handleCategoryChange(category)}
-                    >
-                      {category}
-                    </Link>
-                  ))}
+                <Link
+                  href="/myaccount"
+                  className="px-4 py-2 rounded-full text-sm font-rockwell-bold text-black hover:text-gray-600"
+                  style={{
+                    textTransform: 'lowercase'
+                  }}
+                >
+                  my account
+                </Link>
               </div>
             </nav>
           </div>
@@ -135,13 +110,7 @@ export default function Home() {
 
           {articles.length === 0 && !isLoading && !error && (
             <div className="text-center py-8">
-              <p className="text-gray-500">No articles available for this category</p>
-              <button 
-                onClick={() => handleCategoryChange('general')}
-                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
-              >
-                Try General News
-              </button>
+              <p className="text-gray-500">No articles available</p>
             </div>
           )}
         </div>

@@ -7,9 +7,8 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category')?.toLowerCase() || 'general';
-    const country = searchParams.get('country') || 'gb'; // Default to Great Britain
     
-    const articles = await fetchNews(category, country);
+    const articles = await fetchNews(category);
     return NextResponse.json({ articles });
   } catch (error) {
     console.error('Error fetching news:', error);

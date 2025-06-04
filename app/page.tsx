@@ -67,8 +67,8 @@ export default function Home() {
               height={30}
               className="h-8 w-auto"
             />
-            <nav className="hidden md:block">
-              <div className="flex space-x-4">
+            <nav className="flex flex-wrap justify-center gap-2 md:justify-end">
+              <div className="flex flex-wrap justify-center gap-2">
                 {categories.map((category) => (
                   <Link
                     key={category}

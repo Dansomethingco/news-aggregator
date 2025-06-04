@@ -1,6 +1,17 @@
 import { NextResponse } from 'next/server';
 
-const NEWS_API_KEY = process.env.NEWS_API_KEY || 'ee5ff44e5ba240dc91d5d2289077d65d';
+const NEWS_API_KEY = process.env.NEXT_PUBLIC_NEWS_API_KEY;
+
+// Log environment setup
+console.log('Environment setup:', {
+  hasApiKey: !!NEWS_API_KEY,
+  apiKeyLength: NEWS_API_KEY ? NEWS_API_KEY.length : 0,
+  envLoaded: process.env.NEXT_PUBLIC
+});
+
+if (!NEWS_API_KEY) {
+  throw new Error('NEWS_API_KEY environment variable is not set');
+}
 const NEWS_API_URL = 'https://newsapi.org/v2/top-headlines';
 
 interface NewsArticle {
@@ -26,6 +37,8 @@ interface NewsApiResponse {
 
 export async function fetchNews(category: string, country: string): Promise<NewsArticle[]> {
   try {
+    console.log('Fetching news for:', { category, country });
+    
     // Normalize category and country
     const normalizedCategory = category.toLowerCase();
     const normalizedCountry = country.toLowerCase();
@@ -44,40 +57,48 @@ export async function fetchNews(category: string, country: string): Promise<News
     }
 
     // Build query parameters
-    const queryParams = new URLSearchParams({
-      category: normalizedCategory,
-      country: normalizedCountry,
-      apiKey: NEWS_API_KEY,
-      language: 'en'
+    const url = `${NEWS_API_URL}?category=${normalizedCategory}&country=${normalizedCountry}&apiKey=${NEWS_API_KEY}&language=en`;
+    console.log('API URL:', url);
+    console.log('Request Headers:', { 'User-Agent': 'Next.js News Aggregator' });
+
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Next.js News Aggregator'
+      }
     });
 
-    console.log('Fetching news with params:', Object.fromEntries(queryParams));
-    
-    const response = await fetch(`${NEWS_API_URL}?${queryParams}`);
-    
+    const apiData = await response.json();
+    console.log('API Response Status:', response.status);
+    console.log('API Response Headers:', Object.fromEntries(response.headers.entries()));
+    console.log('API Response Data:', {
+      status: apiData.status,
+      totalResults: apiData.totalResults,
+      articlesCount: apiData.articles?.length,
+      message: apiData.message
+    });
+
+    console.log('API Response:', {
+      status: apiData.status,
+      totalResults: apiData.totalResults,
+    });
+
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('API Error:', {
-        status: response.status,
-        statusText: response.statusText,
-        body: errorText
-      });
-      throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+      console.error('API Error:', apiData);
+      throw new Error(apiData.message || `API request failed with status ${response.status}`);
     }
 
-    const data: NewsApiResponse = await response.json();
-    
-    if (data.status !== 'ok') {
-      console.error('API Response Error:', data);
-      throw new Error(`News API request failed: ${data.message || 'Unknown error'}`);
+    if (apiData.status !== 'ok') {
+      console.error('API Status Error:', apiData);
+      throw new Error(apiData.message || 'API returned non-ok status');
+      throw new Error(`News API request failed: ${apiData.message || 'Unknown error'}`);
     }
 
-    if (data.articles.length === 0) {
+    if (apiData.articles.length === 0) {
       console.log('No articles found for category:', normalizedCategory, 'country:', normalizedCountry);
       return [];
     }
 
-    return data.articles;
+    return apiData.articles;
   } catch (error) {
     console.error('Error fetching news:', error);
     return [];

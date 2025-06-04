@@ -58,7 +58,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto py-1 px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             <nav className="flex overflow-x-auto hide-scrollbar">
               <div className="flex min-w-full gap-2">

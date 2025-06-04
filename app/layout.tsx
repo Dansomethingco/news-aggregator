@@ -33,13 +33,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="font-sans">
-        <PreferencesProvider>
-          <main className="min-h-screen bg-white">
-            {children}
-          </main>
-        </PreferencesProvider>
+    <html lang="en" className={rockwell.variable}>
+      <body className="__variable_cd3a0a __variable_5cfdac __variable_9a8899 antialiased">
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          {children}
+        </div>
       </body>
     </html>
   );

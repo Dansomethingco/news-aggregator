@@ -60,13 +60,6 @@ export default function Home() {
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
-            <Image
-              src="/logo.svg"
-              alt="Today Logo"
-              width={120}
-              height={30}
-              className="h-8 w-auto"
-            />
             <nav className="flex overflow-x-auto hide-scrollbar">
               <div className="flex min-w-full gap-2">
                 {categories

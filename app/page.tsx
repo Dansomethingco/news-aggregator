@@ -73,14 +73,17 @@ export default function Home() {
                   <Link
                     key={category}
                     href={`/category/${category}`}
-                    className={`px-3 py-2 rounded-md text-sm font-medium ${
+                    className={`px-4 py-2 rounded-full text-sm font-rockwell-regular ${
                       category === currentCategory
-                        ? 'bg-red-500 text-white'
-                        : 'text-gray-700 hover:text-gray-900'
+                        ? 'bg-[#003366] text-white'
+                        : 'text-black hover:text-gray-600'
                     }`}
+                    style={{
+                      textTransform: 'lowercase'
+                    }}
                     onClick={() => handleCategoryChange(category)}
                   >
-                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                    {category}
                   </Link>
                 ))}
               </div>

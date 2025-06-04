@@ -57,15 +57,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <div className="absolute z-10 top-4 right-4">
-        <Link 
-          href="/myaccount"
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
-        >
-          My Account
-        </Link>
-      </div>
-
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">

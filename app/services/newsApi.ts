@@ -1,14 +1,15 @@
 import { generateMockNews, Article, NewsResponse } from '@/lib/mockNews';
 
 export type NewsCategory = 
+  | 'all'
   | 'breaking'
   | 'business'
-  | 'technology'
   | 'entertainment'
+  | 'general'
   | 'health'
   | 'science'
   | 'sports'
-  | 'general';
+  | 'technology';
 
 // Re-export the Article type
 export type { Article } from '@/lib/mockNews';

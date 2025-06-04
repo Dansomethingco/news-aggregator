@@ -9,7 +9,7 @@
 
 @layer base {
   body {
-    @apply font-rockwell text-black;
+    @apply font-sans text-black;
   }
 
   h1 {

@@ -14,7 +14,7 @@ if (!NEWS_API_KEY) {
 }
 const NEWS_API_URL = 'https://newsapi.org/v2/top-headlines';
 
-interface NewsArticle {
+export interface NewsArticle {
   source: {
     id: string | null;
     name: string;
@@ -28,7 +28,7 @@ interface NewsArticle {
   content: string | null;
 }
 
-interface NewsApiResponse {
+export interface NewsApiResponse {
   status: string;
   totalResults: number;
   articles: NewsArticle[];

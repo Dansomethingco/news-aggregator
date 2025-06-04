@@ -93,9 +93,6 @@ export default function NewsStoryViewer({ articles }: NewsStoryViewerProps) {
             <span className="font-rockwell-regular text-gray-600">
               Source: {currentArticle.source?.name || 'Unknown'}
             </span>
-            <span className="font-rockwell-regular text-gray-600">
-              Category: {currentArticle.category || 'General'}
-            </span>
           </div>
 
           {/* Timestamp */}

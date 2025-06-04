@@ -17,8 +17,8 @@ export default function Header() {
               <Image
                 src="/logo.svg"
                 alt="Today Logo"
-                width={120}
-                height={120}
+                width={180}
+                height={180}
               />
             </Link>
           </div>

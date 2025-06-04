@@ -3,13 +3,14 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { NewsCategory } from './services/newsApi';
+import { fetchNews } from '@/app/services/newsApiService';
 import { Article } from '@/lib/mockNews';
+import { NewsCategory } from '@/app/services/newsApi';
 import { usePreferences } from './contexts/PreferencesContext';
 
 export default function Home() {
   const { preferences } = usePreferences();
-  const [currentCategory, setCurrentCategory] = useState<NewsCategory>('general');
+  const [currentCategory, setCurrentCategory] = useState<string>('general');
   const [articles, setArticles] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

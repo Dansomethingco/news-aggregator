@@ -68,7 +68,7 @@ export default function Home() {
               className="h-8 w-auto"
             />
             <nav className="hidden md:block">
-              <div className="flex space-x-8">
+              <div className="flex space-x-4">
                 {categories.map((category) => (
                   <Link
                     key={category}

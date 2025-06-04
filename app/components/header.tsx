@@ -10,20 +10,16 @@ export default function Header() {
   return (
     <>
       {/* Large centered logo */}
-      <div className="w-full bg-white border-b border-gray-200 py-8">
+      <div className="w-full bg-white border-b border-gray-200 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center items-center">
             <Link href="/" className="flex items-center">
               <Image
                 src="/logo.svg"
                 alt="Today Logo"
-                width={120}  // 300% of 40px
-                height={120} // 300% of 40px
-                className="mr-2"
+                width={120}
+                height={120}
               />
-              <h1 className="font-rockwell-bold text-black text-4xl tracking-wider">
-                today
-              </h1>
             </Link>
           </div>
         </div>
@@ -31,20 +27,12 @@ export default function Header() {
 
       {/* Categories bar */}
       <header className="w-full bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <nav className="hidden md:flex space-x-8">
                 {/* Categories will be added here */}
               </nav>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Link
-                href="/myaccount"
-                className="font-rockwell-bold text-black text-sm tracking-wider hover:text-gray-600 transition-colors"
-              >
-                my account
-              </Link>
             </div>
           </div>
         </div>
@@ -52,4 +40,3 @@ export default function Header() {
     </>
   )
 }
-

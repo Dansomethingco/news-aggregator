@@ -35,10 +35,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={rockwell.variable}>
       <body className="__variable_cd3a0a __variable_5cfdac __variable_9a8899 antialiased">
-        <div className="flex flex-col items-center justify-center min-h-screen">
-          {children}
-        </div>
+        <PreferencesProvider>
+          <div className="flex flex-col items-center justify-center min-h-screen">
+            {children}
+          </div>
+        </PreferencesProvider>
       </body>
     </html>
   );
 }
+

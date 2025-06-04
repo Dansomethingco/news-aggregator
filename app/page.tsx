@@ -72,7 +72,7 @@ export default function Home() {
                     <Link
                       key={category}
                       href={`/category/${category}`}
-                      className={`px-4 py-2 rounded-full text-sm font-rockwell-regular ${
+                      className={`px-4 py-2 rounded-full text-sm font-rockwell-bold ${
                         category === currentCategory
                           ? 'bg-[#003366] text-white'
                           : 'text-black hover:text-gray-600'

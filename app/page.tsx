@@ -4,8 +4,16 @@ import { usePreferences } from './contexts/PreferencesContext';
 import { useSearchParams } from 'next/navigation';
 import NewsFeed from './components/NewsFeed.server';
 
-export default function Home() {
-  const searchParams = useSearchParams();
+// Get search parameters on the server side
+export async function getServerSideProps(context: { searchParams: { category?: string } }) {
+  return {
+    props: {
+      searchParams: context.searchParams
+    }
+  };
+}
+
+export default function Home({ searchParams }: { searchParams: { category?: string } }) {
   const { preferences } = usePreferences();
 
   return (
@@ -19,7 +27,7 @@ export default function Home() {
                 key={cat.toLowerCase()}
                 href={`/category/${cat.toLowerCase()}`}
                 className={`px-4 py-2 rounded-full text-sm font-rockwell-bold ${
-                  cat.toLowerCase() === searchParams.get('category')?.toLowerCase()
+                  cat.toLowerCase() === searchParams?.category?.toLowerCase()
                     ? 'bg-[#003366] text-white'
                     : 'text-black hover:text-gray-600'
                 }`}
@@ -39,7 +47,7 @@ export default function Home() {
             </div>
           </div>
         }>
-          <NewsFeed />
+          <NewsFeed searchParams={searchParams} />
         </Suspense>
       </div>
     </div>

@@ -1,26 +1,9 @@
 import type { Metadata } from "next";
-import localFont from 'next/font/local';
 import "./globals.css";
 import { PreferencesProvider } from './contexts/PreferencesContext';
 import Header from './components/header';
 
-const rockwell = localFont({
-  src: [
-    {
-      path: './fonts/rockwell-regular.ttf',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: './fonts/rockwell-bold.ttf',
-      weight: '700',
-      style: 'normal',
-    },
-  ],
-  variable: '--font-rockwell',
-});
-
-export const metadata: Metadata = {
+const metadata: Metadata = {
   title: "Today",
   description: "Your personalized news feed",
   icons: {
@@ -34,8 +17,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={rockwell.variable}>
-      <body className="__variable_cd3a0a __variable_5cfdac __variable_9a8899 antialiased">
+    <html lang="en">
+      <body className="font-rockwell antialiased">
         <PreferencesProvider>
           <div className="flex flex-col min-h-screen">
             <Header />

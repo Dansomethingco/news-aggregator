@@ -98,16 +98,15 @@ export async function fetchNews(category: string): Promise<NewsArticle[]> {
   }
 }
 
-export async function getNewsByCategory(category: string): Promise<NewsArticle[]> {
+export async function getNewsByCategory(category: string): Promise<NextResponse> {
   try {
-    const response = await fetch(`/api/news?category=${category}`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch news articles');
-    }
-    const data = await response.json();
-    return data.articles || [];
+    const articles = await fetchNews(category);
+    return NextResponse.json({ articles });
   } catch (error) {
-    console.error('Error fetching news:', error);
-    throw new Error('Failed to fetch news articles');
+    console.error('Error in getNewsByCategory:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch news' },
+      { status: 500 }
+    );
   }
 }

@@ -16,7 +16,7 @@ export default function Header() {
             <Link href="/" className="flex items-center">
               <Image
                 src="/logo.svg"
-                alt="Today Logo"
+                alt="Logo Thin"
                 width={180}
                 height={180}
               />
